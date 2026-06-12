@@ -54,6 +54,7 @@ COMMAND
     up         upgrade GoFrame version/tool to latest one in current project
     env        show current Golang environment variables
     fix        auto fixing codes after upgrading to new GoFrame version
+    check      check project for GoFrame convention compliance
     run        running go codes with hot-compiled-like feature
     gen        automatically generate go files for dao/do/entity/pb/pbentity
     tpl        template parsing and building commands

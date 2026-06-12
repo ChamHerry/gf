@@ -54,6 +54,7 @@ $ gf -h
     up         升级项目中的 GoFrame 版本/工具到最新版本
     env        显示当前 Golang 环境变量
     fix        升级到新 GoFrame 版本后自动修复代码
+    check      检查项目是否符合 GoFrame 规范
     run        运行 go 代码，具有热编译功能
     gen        自动生成 dao/do/entity/pb/pbentity 的 go 文件
     tpl        模板解析和构建命令

@@ -79,6 +79,7 @@ func GetCommand(ctx context.Context) (*Command, error) {
 		cmd.Up,
 		cmd.Env,
 		cmd.Fix,
+		cmd.Check,
 		cmd.Run,
 		cmd.Gen,
 		cmd.Tpl,
