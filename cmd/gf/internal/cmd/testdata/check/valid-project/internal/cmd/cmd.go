@@ -17,6 +17,7 @@ var Main = gcmd.Command{
 	Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 		s := g.Server()
 		s.Group("/", func(group *ghttp.RouterGroup) {
+			group.Middleware(ghttp.MiddlewareHandlerResponse)
 			group.Bind(hello.NewV1())
 		})
 		s.Run()

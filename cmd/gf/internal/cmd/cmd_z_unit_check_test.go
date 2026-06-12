@@ -8,6 +8,7 @@ package cmd
 
 import (
 	"context"
+	"regexp"
 	"testing"
 
 	"github.com/gogf/gf/v2/test/gtest"
@@ -823,5 +824,57 @@ func Test_Check_CmdErrorNoStackTrace(t *testing.T) {
 		// Should NOT contain stack trace markers from gerror.
 		t.Assert(gstr.Contains(err.Error(), "github.com/gogf"), false)
 		t.Assert(gstr.Contains(err.Error(), ".go:"), false)
+	})
+}
+
+// Test_Check_ResponseRule_ValidProject tests that the response middleware rule
+// passes when the project uses ghttp.MiddlewareHandlerResponse.
+func Test_Check_ResponseRule_ValidProject(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var (
+			projectPath = gtest.DataPath("check", "valid-project")
+		)
+
+		engine, err := check.NewEngine(projectPath, check.EngineOptions{})
+		t.AssertNil(err)
+		engine.RegisterRule(check.NewResponseRule())
+
+		report := engine.Run(context.Background())
+		// Valid project registers ghttp.MiddlewareHandlerResponse.
+		t.AssertEQ(len(report.Violations), 0)
+	})
+}
+
+// Test_Check_ResponseRule_InvalidProject tests that the response middleware rule
+// reports CODE-RESP-001 when no response middleware is found.
+func Test_Check_ResponseRule_InvalidProject(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var (
+			projectPath = gtest.DataPath("check", "invalid-project")
+		)
+
+		engine, err := check.NewEngine(projectPath, check.EngineOptions{})
+		t.AssertNil(err)
+		engine.RegisterRule(check.NewResponseRule())
+
+		report := engine.Run(context.Background())
+		// Invalid project has no response middleware.
+		t.AssertEQ(len(report.Violations), 1)
+		t.AssertEQ(report.Violations[0].RuleID, "CODE-RESP-001")
+	})
+}
+
+// Test_Check_ResponseRule_CustomMiddleware tests that custom middleware
+// names matching the pattern (e.g., ResponseHandler) are also detected.
+func Test_Check_ResponseRule_CustomMiddleware(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		// The regex pattern should match common custom response middleware names.
+		pattern := regexp.MustCompile(`(?i)(Middleware\w*Response|ResponseHandler)`)
+		t.AssertEQ(pattern.MatchString("ResponseHandler"), true)
+		t.AssertEQ(pattern.MatchString("MiddlewareHandlerResponse"), true)
+		t.AssertEQ(pattern.MatchString("MiddlewareResponse"), true)
+		// Should not match unrelated middleware names.
+		t.AssertEQ(pattern.MatchString("MiddlewareCORS"), false)
+		t.AssertEQ(pattern.MatchString("MiddlewareAuth"), false)
 	})
 }

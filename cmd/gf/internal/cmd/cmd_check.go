@@ -74,6 +74,7 @@ func (c cCheck) Index(ctx context.Context, in cCheckInput) (out *cCheckOutput, e
 	engine.RegisterRule(check.NewConfigRule())
 	engine.RegisterRule(check.NewGeneratedFileRule())
 	engine.RegisterRule(check.NewDAORule())
+	engine.RegisterRule(check.NewResponseRule())
 
 	// Run all registered rules and collect violations.
 	report := engine.Run(ctx)
