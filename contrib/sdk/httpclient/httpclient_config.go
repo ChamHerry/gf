@@ -18,4 +18,10 @@ type Config struct {
 	Handler Handler         // Custom response handler.
 	Logger  *glog.Logger    // Custom logger.
 	RawDump bool            // Whether auto dump request&response in stdout.
+
+	// Engine configures the TLS transport engine.
+	// When nil, the default gclient transport is used (backward compatible).
+	// When non-nil, the engine's transport replaces the default, enabling
+	// TLS fingerprint simulation and custom proxy support.
+	Engine *EngineConfig
 }

@@ -39,6 +39,21 @@ func New(config Config) *Client {
 	if handler == nil {
 		handler = NewDefaultHandler(config.Logger, config.RawDump)
 	}
+	// When an engine config is provided, create the engine and inject its
+	// transport into the underlying HTTP client, replacing the default
+	// Go transport. This enables TLS fingerprint simulation and custom
+	// proxy support while keeping the rest of the gclient behavior intact.
+	if config.Engine != nil {
+		engine, err := NewEngine(*config.Engine)
+		if err != nil {
+			panic(gerror.Wrap(err, `failed to create httpclient engine`))
+		}
+		transport, err := engine.CreateTransport()
+		if err != nil {
+			panic(gerror.Wrap(err, `failed to create transport from httpclient engine`))
+		}
+		client.Transport = transport
+	}
 	if !gstr.HasPrefix(config.URL, "http") {
 		config.URL = fmt.Sprintf("http://%s", config.URL)
 	}
