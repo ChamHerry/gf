@@ -45,7 +45,7 @@ func NewGeneratedFileRule() *GeneratedFileRule {
 }
 
 // Run executes generated file protection checks against the project.
-func (r *GeneratedFileRule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *GeneratedFileRule) Run(_ context.Context, project *Project) []*Violation {
 	var violations []*Violation
 
 	for _, genDir := range generatedFileDirs {

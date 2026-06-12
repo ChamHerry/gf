@@ -35,7 +35,7 @@ func NewControllerRule() *ControllerRule {
 }
 
 // Run executes controller checks against the project.
-func (r *ControllerRule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *ControllerRule) Run(_ context.Context, project *Project) []*Violation {
 	var violations []*Violation
 
 	for _, baseDir := range getProjectBaseDirs(project) {

@@ -34,7 +34,7 @@ func NewDAORule() *DAORule {
 }
 
 // Run executes DAO pattern checks against the project.
-func (r *DAORule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *DAORule) Run(_ context.Context, project *Project) []*Violation {
 	var violations []*Violation
 
 	for _, baseDir := range getProjectBaseDirs(project) {
@@ -61,12 +61,9 @@ func (r *DAORule) Run(ctx context.Context, project *Project) []*Violation {
 func (r *DAORule) checkDAOFile(f *GoFile) []*Violation {
 	var violations []*Violation
 
-	// Check that the file defines at least one DAO struct or variable
-	// matching the file name pattern (e.g., user.go should define UserDao).
+	// Check that the file defines at least one DAO struct matching
+	// the expected naming convention (struct name ends with "Dao").
 	expectedSuffix := "Dao"
-	fileBaseName := pathBase(f.Path)
-	// Remove .go extension and _internal suffix.
-	fileBaseName = strings.TrimSuffix(fileBaseName, ".go")
 
 	// Only check top-level type declarations (not local types defined inside
 	// function bodies, which are implementation details, not DAO structs).
@@ -109,13 +106,4 @@ func pathDir(path string) string {
 		return ""
 	}
 	return path[:idx]
-}
-
-// pathBase returns the last component of a slash-separated path.
-func pathBase(path string) string {
-	idx := strings.LastIndex(path, "/")
-	if idx < 0 {
-		return path
-	}
-	return path[idx+1:]
 }
