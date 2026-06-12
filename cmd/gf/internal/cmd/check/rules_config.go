@@ -29,7 +29,7 @@ func NewConfigRule() *ConfigRule {
 }
 
 // Run executes configuration checks against the project.
-func (r *ConfigRule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *ConfigRule) Run(_ context.Context, project *Project) []*Violation {
 	var violations []*Violation
 
 	// CFG-001: hack/config.yaml for CLI tool configuration.

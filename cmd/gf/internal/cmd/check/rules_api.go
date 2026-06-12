@@ -35,7 +35,7 @@ func NewAPIRule() *APIRule {
 }
 
 // Run executes API definition checks against the project.
-func (r *APIRule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *APIRule) Run(_ context.Context, project *Project) []*Violation {
 	var violations []*Violation
 
 	for _, baseDir := range getProjectBaseDirs(project) {

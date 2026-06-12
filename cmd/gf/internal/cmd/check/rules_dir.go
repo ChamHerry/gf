@@ -57,9 +57,9 @@ func NewDirectoryRule() *DirectoryRule {
 }
 
 // Run executes directory structure checks against the project.
-func (r *DirectoryRule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *DirectoryRule) Run(_ context.Context, project *Project) []*Violation {
 	if project.IsMono {
-		return r.checkMonoRepo(ctx, project)
+		return r.checkMonoRepo(project)
 	}
 	return r.checkSingleRepo(project)
 }
@@ -130,7 +130,7 @@ func (r *DirectoryRule) checkAPIVersionDirs(project *Project) []*Violation {
 
 // checkMonoRepo runs directory checks for a mono-repository project.
 // Each app under app/ is checked as a mini single-repo.
-func (r *DirectoryRule) checkMonoRepo(ctx context.Context, project *Project) []*Violation {
+func (r *DirectoryRule) checkMonoRepo(project *Project) []*Violation {
 	var violations []*Violation
 
 	// Find all app subdirectories (app/{service-name}).

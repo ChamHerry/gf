@@ -32,7 +32,7 @@ func NewModuleRule() *ModuleRule {
 }
 
 // Run executes module configuration checks against the project.
-func (r *ModuleRule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *ModuleRule) Run(_ context.Context, project *Project) []*Violation {
 	var violations []*Violation
 
 	goModContent := project.ReadFile("go.mod")

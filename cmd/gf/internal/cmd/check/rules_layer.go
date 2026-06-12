@@ -34,7 +34,7 @@ func NewLayerRule() *LayerRule {
 }
 
 // Run executes layer dependency checks against the project.
-func (r *LayerRule) Run(ctx context.Context, project *Project) []*Violation {
+func (r *LayerRule) Run(_ context.Context, project *Project) []*Violation {
 	var violations []*Violation
 
 	for _, baseDir := range getProjectBaseDirs(project) {
