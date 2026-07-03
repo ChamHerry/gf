@@ -13,6 +13,7 @@ import (
 	"testing"
 
 	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/database/gsearch"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gutil"
@@ -114,6 +115,23 @@ func Test_Object(t *testing.T) {
 		t.AssertNE(g.Res(), nil)
 		t.AssertNE(g.Log(), nil)
 		t.AssertNE(g.Validator(), nil)
+	})
+}
+
+func Test_Search(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		engineType := gsearch.EngineType("g-search-facade")
+		group := "g-search-facade-group"
+		gsearch.RegisterAdapterFunc(engineType, func(config *gsearch.Config) gsearch.Adapter {
+			return &gSearchTestAdapter{id: "facade"}
+		})
+		gsearch.SetConfig(&gsearch.Config{Type: engineType}, group)
+		defer gsearch.RemoveConfig(group)
+
+		search := g.Search(group)
+		t.AssertNE(search, nil)
+		t.Assert(search.Config().Type, engineType)
+		t.Assert(search.Adapter().(*gSearchTestAdapter).id, "facade")
 	})
 }
 

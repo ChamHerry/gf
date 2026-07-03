@@ -13,5 +13,6 @@ const (
 	frameCoreComponentNameHttpClient = "gf.core.component.httpclient"
 	frameCoreComponentNameLogger     = "gf.core.component.logger"
 	frameCoreComponentNameRedis      = "gf.core.component.redis"
+	frameCoreComponentNameSearch     = "gf.core.component.search"
 	frameCoreComponentNameServer     = "gf.core.component.server"
 )

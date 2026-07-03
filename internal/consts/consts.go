@@ -11,6 +11,7 @@ const (
 	ConfigNodeNameDatabase        = "database"
 	ConfigNodeNameLogger          = "logger"
 	ConfigNodeNameRedis           = "redis"
+	ConfigNodeNameSearch          = "search"
 	ConfigNodeNameViewer          = "viewer"
 	ConfigNodeNameServer          = "server"     // General version configuration item name.
 	ConfigNodeNameServerSecondary = "httpserver" // New version configuration item name support from v2.

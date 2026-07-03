@@ -9,6 +9,7 @@ package g
 import (
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/database/gredis"
+	"github.com/gogf/gf/v2/database/gsearch"
 	"github.com/gogf/gf/v2/frame/gins"
 	"github.com/gogf/gf/v2/i18n/gi18n"
 	"github.com/gogf/gf/v2/net/gclient"
@@ -100,6 +101,11 @@ func ModelRaw(rawSql string, args ...any) *gdb.Model {
 // Redis returns an instance of redis client with specified configuration group name.
 func Redis(name ...string) *gredis.Redis {
 	return gins.Redis(name...)
+}
+
+// Search returns an instance of search client with specified configuration group name.
+func Search(name ...string) *gsearch.Search {
+	return gins.Search(name...)
 }
 
 // Validator is a convenience function, which creates and returns a new validation manager object.
