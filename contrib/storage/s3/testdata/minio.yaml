@@ -1,0 +1,11 @@
+storage:
+  integration:
+    type: s3
+    endpoint: http://127.0.0.1:19000
+    region: us-east-1
+    pathStyle: true
+    tls: false
+    credentials:
+      accessKey: opsflow-local
+      secretKey: opsflow-local-secret
+    timeout: 30s
