@@ -3,7 +3,7 @@ module github.com/gogf/gf/contrib/sdk/httpclient/v2
 go 1.24.0
 
 require (
-	github.com/gogf/gf/v2 v2.10.2
+	github.com/gogf/gf/v2 v2.10.3
 	github.com/imroc/req/v3 v3.57.0
 	github.com/refraction-networking/utls v1.8.1
 	golang.org/x/net v0.48.0
